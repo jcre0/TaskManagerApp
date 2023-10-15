@@ -1,5 +1,6 @@
 # TODO Create a function that asks the user what action they want to do. (Main Menu)
 import sys
+import json
 
 
 def main_menu():
@@ -45,7 +46,20 @@ def post_action_redirect(x: str):
 def create():
     print("")  # This part of the code will allow the user to create a new file. This file will be saved as a JSON file
     new_file_name = input("What name do you want for your new file? Enter here: ")
-    open(f"{new_file_name}", "x")
+    print("Below this line you will be asked for information on the task you want to create.")
+    task_name = input("Enter a name for you task: ")
+    task_desc = input("Enter a short description of your task: ")
+    task_dealine = input("Enter a deadline for your task. Write it in this format: mmddyyyy. Enter here: ")
+    task_status = "active"
+    task_dict = {
+        "Task Name": task_name,
+        "Task Description": task_desc,
+        "Task Deadline": task_dealine,
+        "Task Status": task_status
+    }
+    with open(f"{new_file_name}", "w") as file:
+        file.write(str(task_dict))
+
 # TODO Create a function that allows the user to modify a task file
 # TODO Create a function that allows the user to delete a specific task
 # TODO Create a system that allows the user to view the tasks they have saved in a JSON file
