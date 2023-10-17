@@ -1,6 +1,6 @@
 # TODO Create a function that asks the user what action they want to do. (Main Menu)
-import sys
 import json
+import sys
 
 
 def main_menu():
@@ -19,10 +19,8 @@ def main_menu():
         user_action_choice = input("Enter the corresponding number here: ")
         action_choices = ["1", "2", "3", "4", "5"]
         for i in action_choices:
-            if i != user_action_choice:
-                raise ValueError
-            else:
-                return post_action_redirect(user_action_choice)
+            if i == user_action_choice:
+                post_action_redirect(user_action_choice)
     except ValueError:
         sys.exit("That is not a valid answer. Please try again!")
 
@@ -30,13 +28,13 @@ def main_menu():
 
 def post_action_redirect(x: str):
     if x == "1":
-        return create()
+        create()
     elif x == "2":
-        return edit()
+        modify()
     elif x == "3":
-        return delete()
+        delete()
     elif x == "4":
-        return information()
+        information()
     else:
         sys.exit("Program terminated.")
 
@@ -57,10 +55,54 @@ def create():
         "Task Deadline": task_dealine,
         "Task Status": task_status
     }
-    with open(f"{new_file_name}", "w") as file:
+    with open(f"{new_file_name}.txt", "w") as file:
         file.write(str(task_dict))
+    main_menu()
+
+
 
 # TODO Create a function that allows the user to modify a task file
+
+def modify():
+    print("To delete, add, or modify a task inside your file enter the file name below.")
+    file_name = input("Enter here: ")
+    with open(f"{file_name}.txt", "r") as file:
+        print(file.read())
+    print(f"""
+    Please enter a number corresponding to the action you want to do:
+    
+    1. Add new task
+    2. Edit existing task
+    3. Delete an existing task
+    4. Go back to main menu
+""")
+    user_modify_choice = input("Enter here: ")
+    modify_choice_ls = ["1", "2", "3", "4"]
+    for i in modify_choice_ls:
+        if i == user_modify_choice:
+            modify_action_redirect(user_modify_choice, file_name)
+
+def modify_action_redirect(choice, file_name):
+    if choice == "1":
+        add_new_task(file_name)
+    elif choice == "2":
+        edit_task(file_name)
+    elif choice == "3":
+        del_task(file_name)
+    else:
+        main_menu()
+
+def add_new_task(x):
+    with open(f"{x}.txt", "a") as file:
+
+
+
+
+
+
+
+
+
 # TODO Create a function that allows the user to delete a specific task
 # TODO Create a system that allows the user to view the tasks they have saved in a JSON file
 main_menu()
